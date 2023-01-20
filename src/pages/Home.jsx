@@ -1,7 +1,11 @@
 import React from 'react';
 
+import { CountriesList } from '../components/CountriesList/CountriesList';
+
 export const Home = () => {
   return (
-    <div></div>
+    <>
+      <CountriesList />
+    </>
   );
 }
