@@ -55,3 +55,8 @@ button {
   font-family: inherit;
   color: inherit;
 }
+
+input {
+  color: inherit;
+  font-size: inherit;
+}
