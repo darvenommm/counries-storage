@@ -1,7 +1,8 @@
 import Select from 'react-select';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setNewRegionAction } from '../../../store/filters/filtersActions';
+import { regionFilterSelector } from '../../../store/filters/filtersSelectors';
 
 import styled from 'styled-components';
 
@@ -15,6 +16,7 @@ const selectStyles = {
     backgroundColor: 'var(--element-color)',
     border: 'var(--element-color)',
     boxShadow: 'var(--shadow)',
+    transition: 'none',
   }),
   singleValue: (styles) => ({
     ...styles,
@@ -40,16 +42,22 @@ const SelectContainer = styled.div`
 
 export const CustomSelect = () => {
   const dispatch = useDispatch();
+  const choosedRegion = useSelector(regionFilterSelector);
 
   const changeSelectHanlder = (choice) => (
     dispatch(setNewRegionAction(choice.value))
   );
 
+  const indexChoosedRegion = regionsForSelect.findIndex(region => (
+    region.value === choosedRegion
+  ));
+
   return (
     <SelectContainer>
       <Select
         options={regionsForSelect}
-        defaultValue={regionsForSelect[0]}
+        // Works only with passing an index to an array
+        defaultValue={regionsForSelect[indexChoosedRegion]}
         styles={selectStyles}
         onChange={changeSelectHanlder}
       />

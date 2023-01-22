@@ -8,9 +8,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './store';
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { rootPath, countryPath } from './constans/routerPath';
 
 import { Template } from './pages/Template';
 import { Home } from './pages/Home';
+import { Country } from './pages/Country';
 
 import './index.css';
 
@@ -21,8 +23,9 @@ root.render(
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Template />}>
-              <Route element={<Home />} index />
+            <Route path={`${rootPath}`} element={<Template />}>
+              <Route index element={<Home />} />
+              <Route path={`${countryPath}:name`} element={<Country />} />
             </Route>
           </Routes>
         </BrowserRouter>

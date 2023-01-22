@@ -10,7 +10,7 @@ import { Container } from '../Container/Container';
 import { Wrapper } from './elements/Wrapper';
 import { CountryItem } from '../CountryItem/CountryItem';
 
-import { Info } from './elements/Info';
+import { Info } from '../Info/Info';
 
 import { LOADING, ERROR } from '../../constans/statuses';
 
@@ -20,13 +20,20 @@ export const CountriesList = () => {
   const region = useSelector(regionFilterSelector);
   const name = useSelector(nameFilterSelector);
 
-  const countries = useSelector(state => countriesByRegionAndNameSelector(state, region, name));
+  const countries = useSelector(state =>
+    countriesByRegionAndNameSelector(state, region, name)
+  );
   const status = useSelector(countriesStatusSelector);
   const error = useSelector(countriesErrorSelector);
 
   useEffect(() => {
+    if (countries.length > 0) {
+      return;
+    }
+
     dispatch(fetchCountiesAction)
-  }, [dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (status === LOADING) {
     return (
@@ -42,8 +49,8 @@ export const CountriesList = () => {
 
   const countriesElements = countries.map(country => (
     <CountryItem
-      key={country.name.common}
-      name={country.name.common}
+      key={country.name}
+      name={country.name}
       population={country.population}
       region={country.region}
       capital={country.capital}

@@ -13,7 +13,9 @@ export const countriesByRegionSelector = (state, region) => {
     return countries;
   }
 
-  return countries.filter(country => country.region.toLowerCase() === region.toLowerCase());
+  return countries.filter(country => (
+    country.region.toLowerCase() === region.toLowerCase()
+  ));
 };
 
 export const countriesByNameSelector = (state, name) => {
@@ -23,7 +25,9 @@ export const countriesByNameSelector = (state, name) => {
     return countries;
   }
 
-  return countries.filter(country => country.name.common.toLowerCase().includes(name.toLowerCase()));
+  return countries.filter(country => (
+    country.name.toLowerCase().includes(name.toLowerCase())
+  ));
 };
 
 export const countriesByRegionAndNameSelector = (state, region, name) => {
